@@ -434,6 +434,12 @@ namespace Apex.Serialization.Internal
             var valueMethod = declaredType.GetProperty("Value")!.GetGetMethod()!;
             var nullableType = declaredType.GenericTypeArguments[0];
             var isPrimitive = TypeFields.IsPrimitive(nullableType);
+            /*
+            if (nullableType.IsValueType && !isPrimitive)
+            {
+                return null;
+            }
+            */
 
             return Expression.IfThenElse(
                 Expression.Call(valueAccessExpression, hasValueMethod),

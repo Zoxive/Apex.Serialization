@@ -174,9 +174,19 @@ namespace Apex.Serialization
 
         internal bool IsTypeSerializable(Type type)
         {
-            if (type.IsGenericType && !type.IsGenericTypeDefinition)
+            while (type.IsGenericType && !type.IsGenericTypeDefinition)
             {
-                type = type.GetGenericTypeDefinition();
+                var genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(Nullable<>) && type.GenericTypeArguments.Length == 1)
+                {
+                    // we dont want Nullable<> we want whats inside it
+                    type = type.GenericTypeArguments[0];
+                }
+                else
+                {
+                    type = genericTypeDefinition;
+                }
+                
                 if (_autoWhitelistedTypes.Contains(type))
                 {
                     return true;

@@ -128,7 +128,8 @@ namespace Apex.Serialization.Internal
             SetReserved(sizeNeeded);
         }
 
-        [Conditional("DEV")]
+        // Temp removed to show problem
+        //[Conditional("DEV")]
         private void CheckSize()
         {
             if (_size == 0 || _size < _bufferPosition)
@@ -137,13 +138,13 @@ namespace Apex.Serialization.Internal
             }
         }
 
-        [Conditional("DEV")]
+        //[Conditional("DEV")]
         private void SetReserved(int size)
         {
             _reserved = (uint)(_bufferPosition + size);
         }
 
-        [Conditional("DEV")]
+        //[Conditional("DEV")]
         private void CheckReserved(int size)
         {
             if(_bufferPosition + size > _reserved)
